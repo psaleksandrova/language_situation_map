@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>Карта языковых ситуаций России</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/fancybox.css"/>
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,300,800,700,400italic|PT+Serif:400,400italic"/>
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.easytabs.min.js"></script>
+    <script type="text/javascript" src="js/respond.min.js"></script>
+    <script type="text/javascript" src="js/jquery.easytabs.min.js"></script>
+	<script type="text/javascript" src="js/jquery.adipoli.min.js"></script>
+    <script type="text/javascript" src="js/jquery.fancybox-1.3.4.pack.js"></script>
+    <script type="text/javascript" src="js/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="js/custom.js"></script>
+
+    <link href="../dist/jqvmap.css" media="screen" rel="stylesheet" type="text/css"/>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="../dist/jquery.vmap.js"></script>
+    <script type="text/javascript" src="../dist/maps/jquery.vmap.russia.js" charset="utf-8"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+	function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Владение языками', 'Количество человек'],
+          ['русский', 1240177],
+          ['карельский', 38107],
+		  ['вепсский', 2357],
+          ['финский', 29179],
+		  ['украинский',14892],
+		  ['белорусский', 8054],
+		  ['другие языки', 127721],
+		  ]);
+
+        var options = {
+          title: 'Владение языками в Республике Карелия',
+		  slices: {  2: {offset: 0.3},
+          },
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+    <script>
+      jQuery(document).ready(function () {
+        jQuery('#vmap').vectorMap({
+          map: 'russia_en',
+          backgroundColor: '#999999',
+          color: '#FFEBCD',
+		  hoverColor: '#ABEBC6',
+          hoverOpacity: 0,
+          selectedColor: '#FDC62A',
+          enableZoom: true,
+          showTooltip: true,
+          scaleColors: ['#C8EEFF', '#006491'],
+          normalizeFunction: 'polynomial',
+		  onRegionClick: function(element, code, region)
+    {
+
+		 var divFrame= document.createElement("div");
+		 divFrame.id = "content";
+		 var divChart = document.createElement("div");
+		 divChart.id = "piechart";
+		 divChart.style = "visualization";
+		 divChart.style.float = "right";
+		 divChart.style.width = "500px";
+		 divChart.style.height = "400px";
+
+         var divProf= document.createElement("div");
+		 divProf.id = "profile";
+		 var about = document.createElement("ul");
+		 about.class = "personal-info"
+		 var divHead = document.createElement("div");
+		 divHead.style.float = "center";
+		 divHead.style.height = "400px";
+		 var headList = document.createElement("h2");
+		 var headListText = document.createTextNode("Список миноритарных языков в республике Карелия:");
+		 headList.style.padding = "50px";
+		 headList.append(headListText);
+		 var list = document.createElement("ul");
+		 list.class = "personal-info";
+		 var p1 = document.createElement("li");
+		 var lab = document.createElement("label")
+		 var kar = document.createElement("a");
+		 var createkarText = document.createTextNode("Карельский язык");
+		 kar.href = "../dist/karel.html";
+		 kar.append(createkarText);
+		 p1.append(kar);
+		 lab.append(p1)
+		 list.append(lab);
+		 var p2 = document.createElement("li");
+		 var veps = document.createElement("a");
+		 var createvepsText = document.createTextNode("Вепсский язык");
+		 veps.href = "../dist/vepss.html";
+		 veps.append(createvepsText);
+		 p2.append(veps);
+		 list.append(p2);
+		 list.style.padding = "25px";
+		 var tomap = document.createElement("a");
+		 var tomapText = document.createTextNode("Подробная карта региона");
+		 tomap.href = "../dist/karelia.html";
+		 tomap.class = "tab-profile";
+		 tomap.append(tomapText);
+		 divHead.append(headList);
+		 divHead.appendChild(list);
+		 divHead.appendChild(tomap);
+		 divFrame.appendChild(divChart);
+		 divProf.appendChild(divHead);
+		 divFrame.appendChild(divProf);
+		 document.body.appendChild(divFrame);
+
+		 google.charts.setOnLoadCallback(drawChart);
+    }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="vmap" style="float:left; width: 600px; height: 400px;"></div>
+  </body>
+</html>
